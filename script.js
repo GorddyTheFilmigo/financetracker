@@ -31,12 +31,6 @@ const addGoalBtn = document.getElementById('add-goal-btn');
 const accountModal = document.getElementById('add-account-modal');
 const goalModal = document.getElementById('add-goal-modal');
 
-// Install Button
-const installBtn = document.getElementById('install-btn');
-
-// PWA Install Prompt
-let deferredPrompt;
-
 // ==================== THEME TOGGLE ====================
 themeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
@@ -133,6 +127,7 @@ document.getElementById('save-account-btn').addEventListener('click', () => {
   renderAll();
   accountModal.style.display = 'none';
   
+  // Clear inputs
   document.getElementById('new-account-name').value = '';
   document.getElementById('new-account-type').value = '';
 });
@@ -156,6 +151,7 @@ document.getElementById('save-goal-btn').addEventListener('click', () => {
   renderGoals();
   goalModal.style.display = 'none';
   
+  // Clear inputs
   document.getElementById('new-goal-name').value = '';
   document.getElementById('new-goal-target').value = '';
 });
@@ -174,33 +170,6 @@ document.getElementById('cancel-goal-btn').addEventListener('click', () => {
 window.addEventListener('click', (e) => {
   if (e.target === accountModal) accountModal.style.display = 'none';
   if (e.target === goalModal) goalModal.style.display = 'none';
-});
-
-// ==================== PWA INSTALL BUTTON ====================
-installBtn.addEventListener('click', () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the install prompt');
-      } else {
-        console.log('User dismissed the install prompt');
-      }
-      deferredPrompt = null;
-      installBtn.style.display = 'none';
-    });
-  }
-});
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.style.display = 'inline-block';   // Show install button
-});
-
-window.addEventListener('appinstalled', () => {
-  installBtn.style.display = 'none';
-  console.log('PWA was installed');
 });
 
 // ==================== ADD TRANSACTION ====================
@@ -283,6 +252,7 @@ function renderTransactions() {
     transactionList.appendChild(li);
   });
 
+  // Delete buttons
   document.querySelectorAll('.delete-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       if (confirm('Delete this transaction?')) {
@@ -437,3 +407,18 @@ window.addEventListener('load', () => {
   populateCategories();
   renderAll();
 });
+// ==================== PWA Install Prompt ====================
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // You can show a custom "Install App" button if you want
+  console.log("App can be installed! Ready for PWA.");
+});
+
+
+
+// Optional: Add an Install button later
+// For now, Chrome/Android will show the install banner automatically
