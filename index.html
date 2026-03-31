@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#27ae60">
+  <title>My Finance Tracker</title>
+  
+  <!-- PWA Essential Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>💰 My Finance Tracker</h1>
+      <button id="theme-toggle">🌙</button>
+    </div>
+    <div id="total-balance" class="balance">Total Balance: KSh 0.00</div>
+  </header>
+
+  <section id="accounts">
+    <h2>My Accounts</h2>
+    <div id="accounts-list" class="accounts-grid"></div>
+    <button id="add-account-btn">+ Add New Account</button>
+  </section>
+
+  <section id="add-transaction">
+    <h2>Add New Transaction</h2>
+    <form id="transaction-form">
+      <select id="account" required></select>
+      <input type="text" id="description" placeholder="Description" required>
+      <input type="number" id="amount" placeholder="Amount" step="0.01" required>
+      <select id="type" required>
+        <option value="income">Income (+)</option>
+        <option value="expense">Expense (-)</option>
+      </select>
+      <select id="category" required></select>
+      <input type="date" id="date" required>
+      <label><input type="checkbox" id="recurring"> Recurring Monthly</label>
+      <input type="text" id="note" placeholder="Note (optional)">
+      <button type="submit">Add Transaction</button>
+    </form>
+  </section>
+
+  <section id="summary">
+    <h2>Financial Overview</h2>
+    <div class="summary-cards">
+      <div class="card income-card"><h3>Total Income</h3><p id="total-income">KSh 0.00</p></div>
+      <div class="card expense-card"><h3>Total Expense</h3><p id="total-expense">KSh 0.00</p></div>
+      <div class="card balance-card"><h3>Current Balance</h3><p id="balance-main">KSh 0.00</p></div>
+    </div>
+
+    <div class="charts-container">
+      <div class="chart-box">
+        <h3>Expense by Category</h3>
+        <canvas id="category-pie"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Income vs Expense Trend</h3>
+        <canvas id="trends-bar"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section id="goals">
+    <h2>Savings Goals</h2>
+    <div id="goals-list"></div>
+    <button id="add-goal-btn">+ Add New Goal</button>
+  </section>
+
+  <section id="transactions">
+    <h2>All Transactions</h2>
+    <div class="filters">
+      <select id="account-filter"><option value="">All Accounts</option></select>
+      <input type="text" id="search" placeholder="Search transactions...">
+      <button id="export-csv">Export to CSV</button>
+    </div>
+    <ul id="transaction-list"></ul>
+  </section>
+
+  <button id="clear-all" class="clear-btn">🗑️ Clear All Data</button>
+  <div id="add-account-modal" class="modal">
+    <div class="modal-content">
+      <h3>Add New Account</h3>
+      <input type="text" id="new-account-name" placeholder="Account Name (e.g. Equity Bank)" required>
+      <input type="text" id="new-account-type" placeholder="Type (Bank, Mobile Money, Cash, Credit Card)" required>
+      <div class="modal-buttons">
+        <button id="cancel-account-btn" class="cancel-btn">Cancel</button>
+        <button id="save-account-btn" class="save-btn">Add Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Goal Modal -->
+  <div id="add-goal-modal" class="modal">
+    <div class="modal-content">
+      <h3>Add New Savings Goal</h3>
+      <input type="text" id="new-goal-name" placeholder="Goal Name (e.g. Emergency Fund)" required>
+      <input type="number" id="new-goal-target" placeholder="Target Amount (KSh)" step="0.01" required>
+      <div class="modal-buttons">
+        <button id="cancel-goal-btn" class="cancel-btn">Cancel</button>
+        <button id="save-goal-btn" class="save-btn">Add Goal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

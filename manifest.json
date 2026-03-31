@@ -1,0 +1,22 @@
+{
+  "name": "KSh Finance Tracker",
+  "short_name": "Finance KSh",
+  "description": "Personal Finance Tracker for Kenya - Track M-Pesa, Cash, Bank and more",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#27ae60",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
