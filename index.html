@@ -18,7 +18,10 @@
   <header>
     <div class="header-content">
       <h1>💰 My Finance Tracker</h1>
-      <button id="theme-toggle">🌙</button>
+      <div>
+        <button id="install-btn" class="install-btn">📲 Install App</button>
+        <button id="theme-toggle">🌙</button>
+      </div>
     </div>
     <div id="total-balance" class="balance">Total Balance: KSh 0.00</div>
   </header>
@@ -101,6 +104,30 @@
     <div class="modal-content">
       <h3>Add New Savings Goal</h3>
       <input type="text" id="new-goal-name" placeholder="Goal Name (e.g. Emergency Fund)" required>
+      <input type="number" id="new-goal-target" placeholder="Target Amount (KSh)" step="0.01" required>
+      <div class="modal-buttons">
+        <button id="cancel-goal-btn" class="cancel-btn">Cancel</button>
+        <button id="save-goal-btn" class="save-btn">Add Goal</button>
+      </div>
+    </div>
+  </div>
+  <div id="add-account-modal" class="modal">
+    <div class="modal-content">
+      <h3>Add New Account</h3>
+      <input type="text" id="new-account-name" placeholder="Account Name" required>
+      <input type="text" id="new-account-type" placeholder="Type (Bank, M-Pesa, Cash...)" required>
+      <div class="modal-buttons">
+        <button id="cancel-account-btn" class="cancel-btn">Cancel</button>
+        <button id="save-account-btn" class="save-btn">Add Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Goal Modal -->
+  <div id="add-goal-modal" class="modal">
+    <div class="modal-content">
+      <h3>Add New Savings Goal</h3>
+      <input type="text" id="new-goal-name" placeholder="Goal Name" required>
       <input type="number" id="new-goal-target" placeholder="Target Amount (KSh)" step="0.01" required>
       <div class="modal-buttons">
         <button id="cancel-goal-btn" class="cancel-btn">Cancel</button>
