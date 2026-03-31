@@ -619,3 +619,38 @@ section {
     font-size: 1.2rem;
   }
 }
+/* Install Button */
+.install-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.install-btn:hover {
+  background: #2980b9;
+}
+
+/* Background Image */
+body {
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('image2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Make content readable over background */
+section, header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+}
+
+.dark-mode section,
+.dark-mode header {
+  background: rgba(30, 30, 30, 0.95);
+}
