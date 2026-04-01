@@ -3,115 +3,184 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#27ae60">
+  <meta name="theme-color" content="#16a34a">
   <title>My Finance Tracker</title>
-
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="icon-192.png">
-
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <h1>💰 My Finance Tracker</h1>
-      <div>
-        <button id="theme-toggle">🌙</button>
-      </div>
-    </div>
-    <div id="total-balance" class="balance">Total Balance: KSh 0.00</div>
-  </header>
 
-  <section id="accounts">
-    <h2>My Accounts</h2>
-    <div id="accounts-list" class="accounts-grid"></div>
-    <button id="add-account-btn">+ Add New Account</button>
-  </section>
-
-  <section id="add-transaction">
-    <h2>Add New Transaction</h2>
-    <form id="transaction-form">
-      <select id="account" required></select>
-      <input type="text" id="description" placeholder="Description" required>
-      <input type="number" id="amount" placeholder="Amount" step="0.01" required>
-      <select id="type" required>
-        <option value="income">Income (+)</option>
-        <option value="expense">Expense (-)</option>
-      </select>
-      <select id="category" required></select>
-      <input type="date" id="date" required>
-      <label><input type="checkbox" id="recurring"> Recurring Monthly</label>
-      <input type="text" id="note" placeholder="Note (optional)">
-      <button type="submit">Add Transaction</button>
-    </form>
-  </section>
-
-  <section id="summary">
-    <h2>Financial Overview</h2>
-    <div class="summary-cards">
-      <div class="card income-card"><h3>Total Income</h3><p id="total-income">KSh 0.00</p></div>
-      <div class="card expense-card"><h3>Total Expense</h3><p id="total-expense">KSh 0.00</p></div>
-      <div class="card balance-card"><h3>Current Balance</h3><p id="balance-main">KSh 0.00</p></div>
-    </div>
-    <div class="charts-container">
-      <div class="chart-box">
-        <h3>Expense by Category</h3>
-        <canvas id="category-pie"></canvas>
-      </div>
-      <div class="chart-box">
-        <h3>Income vs Expense Trend</h3>
-        <canvas id="trends-bar"></canvas>
-      </div>
-    </div>
-  </section>
-
-  <section id="goals">
-    <h2>Savings Goals</h2>
-    <div id="goals-list"></div>
-    <button id="add-goal-btn">+ Add New Goal</button>
-  </section>
-
-  <section id="transactions">
-    <h2>All Transactions</h2>
-    <div class="filters">
-      <select id="account-filter"><option value="">All Accounts</option></select>
-      <input type="text" id="search" placeholder="Search transactions...">
-      <button id="export-csv">Export to CSV</button>
-    </div>
-    <ul id="transaction-list"></ul>
-  </section>
-
-  <button id="clear-all" class="clear-btn">🗑️ Clear All Data</button>
-
-  <!-- Add Account Modal -->
-  <div id="add-account-modal" class="modal">
-    <div class="modal-content">
-      <h3>Add New Account</h3>
-      <input type="text" id="new-account-name" placeholder="Account Name (e.g. Equity Bank)" required>
-      <input type="text" id="new-account-type" placeholder="Type (Bank, Mobile Money, Cash, Credit Card)" required>
-      <div class="modal-buttons">
-        <button id="cancel-account-btn" class="cancel-btn">Cancel</button>
-        <button id="save-account-btn" class="save-btn">Add Account</button>
+  <!-- ===== PWA INSTALL BANNER ===== -->
+  <div id="install-banner" class="install-banner" style="display:none;">
+    <div class="install-banner-content">
+      <span>📲 Install Finance Tracker as an app for the best experience</span>
+      <div class="install-banner-btns">
+        <button id="install-accept-btn">Install</button>
+        <button id="install-dismiss-btn">Not now</button>
       </div>
     </div>
   </div>
 
-  <!-- Add Goal Modal -->
-  <div id="add-goal-modal" class="modal">
-    <div class="modal-content">
-      <h3>Add New Savings Goal</h3>
-      <input type="text" id="new-goal-name" placeholder="Goal Name (e.g. Emergency Fund)" required>
-      <input type="number" id="new-goal-target" placeholder="Target Amount (KSh)" step="0.01" required>
-      <div class="modal-buttons">
-        <button id="cancel-goal-btn" class="cancel-btn">Cancel</button>
-        <button id="save-goal-btn" class="save-btn">Add Goal</button>
+  <!-- ===== AUTH SCREEN ===== -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-logo">💰</div>
+      <h1 class="auth-title">Finance Tracker</h1>
+      <p class="auth-subtitle">Your personal money manager</p>
+
+      <!-- Tab switcher -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login"  onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab"        id="tab-signup" onclick="switchTab('signup')">Create Account</button>
       </div>
+
+      <!-- Login Form -->
+      <div id="login-form" class="auth-form">
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <div class="auth-forgot">
+          <a href="#" id="forgot-link">Forgot password?</a>
+        </div>
+        <button class="auth-submit-btn" id="login-btn">Sign In</button>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div id="signup-form" class="auth-form" style="display:none;">
+        <div class="auth-field">
+          <label>Full Name</label>
+          <input type="text" id="signup-name" placeholder="Gorddy Kamau" autocomplete="name">
+        </div>
+        <div class="auth-field">
+          <label>Email</label>
+          <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <input type="password" id="signup-password" placeholder="At least 6 characters" autocomplete="new-password">
+        </div>
+        <button class="auth-submit-btn" id="signup-btn">Create Account</button>
+      </div>
+
+      <div id="auth-error" class="auth-error" style="display:none;"></div>
+      <div id="auth-success" class="auth-success" style="display:none;"></div>
     </div>
   </div>
 
-  <!-- ⚠️ type="module" is required for Firebase ES module imports -->
+  <!-- ===== DASHBOARD ===== -->
+  <div id="dashboard" style="display:none;">
+
+    <header>
+      <div class="header-content">
+        <div class="header-left">
+          <h1>💰 Finance Tracker</h1>
+          <span id="user-greeting" class="user-greeting"></span>
+        </div>
+        <div class="header-right">
+          <button id="theme-toggle">🌙</button>
+          <button id="logout-btn" class="logout-btn">Sign Out</button>
+        </div>
+      </div>
+      <div id="total-balance" class="balance">Total Balance: KSh 0.00</div>
+    </header>
+
+    <section id="accounts">
+      <h2>My Accounts</h2>
+      <div id="accounts-list" class="accounts-grid"></div>
+      <button id="add-account-btn">+ Add New Account</button>
+    </section>
+
+    <section id="add-transaction">
+      <h2>Add New Transaction</h2>
+      <form id="transaction-form">
+        <select id="account" required></select>
+        <input type="text" id="description" placeholder="Description" required>
+        <input type="number" id="amount" placeholder="Amount" step="0.01" required>
+        <select id="type" required>
+          <option value="income">Income (+)</option>
+          <option value="expense">Expense (-)</option>
+        </select>
+        <select id="category" required></select>
+        <input type="date" id="date" required>
+        <label><input type="checkbox" id="recurring"> Recurring Monthly</label>
+        <input type="text" id="note" placeholder="Note (optional)">
+        <button type="submit">Add Transaction</button>
+      </form>
+    </section>
+
+    <section id="summary">
+      <h2>Financial Overview</h2>
+      <div class="summary-cards">
+        <div class="card income-card"><h3>Total Income</h3><p id="total-income">KSh 0.00</p></div>
+        <div class="card expense-card"><h3>Total Expense</h3><p id="total-expense">KSh 0.00</p></div>
+        <div class="card balance-card"><h3>Net Balance</h3><p id="balance-main">KSh 0.00</p></div>
+      </div>
+      <div class="charts-container">
+        <div class="chart-box">
+          <h3>Expense by Category</h3>
+          <canvas id="category-pie"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>Income vs Expense Trend</h3>
+          <canvas id="trends-bar"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section id="goals">
+      <h2>Savings Goals</h2>
+      <div id="goals-list"></div>
+      <button id="add-goal-btn">+ Add New Goal</button>
+    </section>
+
+    <section id="transactions">
+      <h2>All Transactions</h2>
+      <div class="filters">
+        <select id="account-filter"><option value="">All Accounts</option></select>
+        <input type="text" id="search" placeholder="Search...">
+        <button id="export-csv">Export CSV</button>
+      </div>
+      <ul id="transaction-list"></ul>
+    </section>
+
+    <button id="clear-all" class="clear-btn">🗑️ Clear All My Data</button>
+
+    <!-- Add Account Modal -->
+    <div id="add-account-modal" class="modal">
+      <div class="modal-content">
+        <h3>Add New Account</h3>
+        <input type="text" id="new-account-name" placeholder="Account Name (e.g. Equity Bank)">
+        <input type="text" id="new-account-type" placeholder="Type (Bank, Mobile Money, Cash…)">
+        <div class="modal-buttons">
+          <button id="cancel-account-btn" class="cancel-btn">Cancel</button>
+          <button id="save-account-btn"   class="save-btn">Add Account</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Goal Modal -->
+    <div id="add-goal-modal" class="modal">
+      <div class="modal-content">
+        <h3>Add Savings Goal</h3>
+        <input type="text"   id="new-goal-name"   placeholder="Goal Name (e.g. Emergency Fund)">
+        <input type="number" id="new-goal-target"  placeholder="Target Amount (KSh)" step="0.01">
+        <div class="modal-buttons">
+          <button id="cancel-goal-btn" class="cancel-btn">Cancel</button>
+          <button id="save-goal-btn"   class="save-btn">Add Goal</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end #dashboard -->
+
   <script type="module" src="script.js"></script>
 </body>
 </html>
