@@ -5,17 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#27ae60">
   <title>My Finance Tracker</title>
-  
-  <!-- PWA Essential Meta Tags -->
+
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="icon-192.png">
-  
+
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-   <header>
+  <header>
     <div class="header-content">
       <h1>💰 My Finance Tracker</h1>
       <div>
@@ -57,7 +56,6 @@
       <div class="card expense-card"><h3>Total Expense</h3><p id="total-expense">KSh 0.00</p></div>
       <div class="card balance-card"><h3>Current Balance</h3><p id="balance-main">KSh 0.00</p></div>
     </div>
-
     <div class="charts-container">
       <div class="chart-box">
         <h3>Expense by Category</h3>
@@ -87,6 +85,8 @@
   </section>
 
   <button id="clear-all" class="clear-btn">🗑️ Clear All Data</button>
+
+  <!-- Add Account Modal -->
   <div id="add-account-modal" class="modal">
     <div class="modal-content">
       <h3>Add New Account</h3>
@@ -111,31 +111,8 @@
       </div>
     </div>
   </div>
-  <div id="add-account-modal" class="modal">
-    <div class="modal-content">
-      <h3>Add New Account</h3>
-      <input type="text" id="new-account-name" placeholder="Account Name" required>
-      <input type="text" id="new-account-type" placeholder="Type (Bank, M-Pesa, Cash...)" required>
-      <div class="modal-buttons">
-        <button id="cancel-account-btn" class="cancel-btn">Cancel</button>
-        <button id="save-account-btn" class="save-btn">Add Account</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Add Goal Modal -->
-  <div id="add-goal-modal" class="modal">
-    <div class="modal-content">
-      <h3>Add New Savings Goal</h3>
-      <input type="text" id="new-goal-name" placeholder="Goal Name" required>
-      <input type="number" id="new-goal-target" placeholder="Target Amount (KSh)" step="0.01" required>
-      <div class="modal-buttons">
-        <button id="cancel-goal-btn" class="cancel-btn">Cancel</button>
-        <button id="save-goal-btn" class="save-btn">Add Goal</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+  <!-- ⚠️ type="module" is required for Firebase ES module imports -->
+  <script type="module" src="script.js"></script>
 </body>
 </html>
