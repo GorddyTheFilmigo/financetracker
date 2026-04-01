@@ -627,3 +627,323 @@ button[type="submit"]:active { transform: translateY(0); }
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+/* ==================== AUTH SCREEN ==================== */
+.auth-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #0f172a 0%, #1a2e1a 50%, #0f172a 100%);
+}
+
+.auth-card {
+  background: #fff;
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.dark-mode .auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.auth-logo {
+  font-size: 2.8rem;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.auth-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.auth-subtitle {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.auth-tabs {
+  display: flex;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  margin-bottom: 24px;
+  gap: 4px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 9px;
+  border: none;
+  background: transparent;
+  border-radius: calc(var(--radius-sm) - 2px);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.auth-tab.active {
+  background: white;
+  color: var(--text-primary);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.dark-mode .auth-tab.active {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.auth-form { display: block; }
+
+.auth-field {
+  margin-bottom: 14px;
+}
+
+.auth-field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.auth-field input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  background: var(--surface-2);
+  color: var(--text-primary);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.auth-field input:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(22,163,74,0.12);
+}
+
+.auth-forgot {
+  text-align: right;
+  margin-bottom: 18px;
+  margin-top: -6px;
+}
+
+.auth-forgot a {
+  font-size: 0.8rem;
+  color: var(--green);
+  text-decoration: none;
+}
+
+.auth-forgot a:hover { text-decoration: underline; }
+
+.auth-submit-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  box-shadow: 0 2px 12px rgba(22,163,74,0.3);
+  letter-spacing: 0.01em;
+  margin-top: 4px;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(22,163,74,0.4);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-error {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--red-light);
+  color: var(--red);
+  border-radius: var(--radius-sm);
+  font-size: 0.83rem;
+  border: 1px solid rgba(220,38,38,0.2);
+}
+
+.auth-success {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--green-light);
+  color: var(--green-dark);
+  border-radius: var(--radius-sm);
+  font-size: 0.83rem;
+  border: 1px solid rgba(22,163,74,0.2);
+}
+
+/* ==================== HEADER UPDATES ==================== */
+.header-left { display: flex; flex-direction: column; gap: 2px; }
+.header-right { display: flex; align-items: center; gap: 8px; }
+
+.user-greeting {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.logout-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border);
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+}
+
+.logout-btn:hover {
+  background: var(--red-light);
+  color: var(--red);
+  border-color: rgba(220,38,38,0.3);
+}
+
+/* ==================== PWA INSTALL BANNER ==================== */
+.install-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 12px 16px;
+  background: #0f172a;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  animation: slideUp 0.3s ease;
+}
+
+.install-banner-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.install-banner-content span {
+  color: #e2e8f0;
+  font-size: 0.85rem;
+}
+
+.install-banner-btns {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.install-banner-btns button {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.83rem;
+  font-weight: 600;
+}
+
+#install-accept-btn {
+  background: var(--green);
+  color: white;
+}
+
+#install-dismiss-btn {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ==================== GOALS ==================== */
+.goal-item {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.goal-header strong { font-size: 0.88rem; }
+
+.goal-pct {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--green);
+  font-family: var(--font-mono);
+}
+
+.goal-bar-bg {
+  height: 8px;
+  background: var(--border);
+  border-radius: 99px;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+
+.goal-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), #4ade80);
+  border-radius: 99px;
+  transition: width 0.6s ease;
+}
+
+.goal-item small { font-size: 0.75rem; color: var(--text-muted); }
+
+/* ==================== EMPTY STATES ==================== */
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 24px;
+  display: block;
+}
+
+/* ==================== ACCOUNT CARD BALANCE ==================== */
+.account-balance {
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  margin-top: 10px;
+  letter-spacing: -0.02em;
+}
+
+/* ==================== MOBILE AUTH ==================== */
+@media (max-width: 600px) {
+  .auth-card { padding: 28px 20px; }
+  .auth-title { font-size: 1.3rem; }
+  .install-banner-content { flex-direction: column; align-items: flex-start; }
+  .header-left h1 { font-size: 1.15rem; }
+}
