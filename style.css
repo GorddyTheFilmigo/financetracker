@@ -946,4 +946,8 @@ button[type="submit"]:active { transform: translateY(0); }
   .auth-title { font-size: 1.3rem; }
   .install-banner-content { flex-direction: column; align-items: flex-start; }
   .header-left h1 { font-size: 1.15rem; }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ba1d374c7f3a226aa38d6e305fc7563fc2328eb9

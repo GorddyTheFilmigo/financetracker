@@ -499,20 +499,7 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#070B12;color:#F0F4FA;
 <div class="toast" id="toast"><div class="toast-dot" id="toast-dot"></div><span id="toast-msg"></span></div>
 
 <script>
-const DEMOS=[
-  {id:'d1',name:'Salary — TechCo Ltd',amount:85000,source:'bank',cat:'salary',icon:'💼',date:'2025-04-14'},
-  {id:'d2',name:'Kenchic Restaurant',amount:-350,source:'mpesa',cat:'food',icon:'🍔',date:'2025-04-15'},
-  {id:'d3',name:'Sent to MARY WANJIKU',amount:-1500,source:'mpesa',cat:'transfer',icon:'📤',date:'2025-04-14'},
-  {id:'d4',name:'Kenya Power Paybill',amount:-2800,source:'mpesa',cat:'utilities',icon:'💡',date:'2025-04-13'},
-  {id:'d5',name:'Matatu — CBD',amount:-50,source:'cash',cat:'transport',icon:'🚐',date:'2025-04-13'},
-  {id:'d6',name:'Naivas Supermarket',amount:-1240,source:'mpesa',cat:'food',icon:'🛒',date:'2025-04-12'},
-  {id:'d7',name:'Freelance — Web project',amount:12000,source:'mpesa',cat:'salary',icon:'💻',date:'2025-04-11'},
-  {id:'d8',name:'Equity Bank ATM',amount:-5000,source:'bank',cat:'cash',icon:'🏧',date:'2025-04-11'},
-  {id:'d9',name:'Netflix via M-Pesa',amount:-950,source:'mpesa',cat:'entertainment',icon:'🎬',date:'2025-04-10'},
-  {id:'d10',name:'Cash lunch',amount:-200,source:'cash',cat:'food',icon:'🍽️',date:'2025-04-09'},
-  {id:'d11',name:'Airtime top-up',amount:-100,source:'mpesa',cat:'utilities',icon:'📱',date:'2025-04-09'},
-  {id:'d12',name:'Java House Coffee',amount:-480,source:'mpesa',cat:'food',icon:'☕',date:'2025-04-08'},
-];
+const DEMOS=[];
 const BUDGETS={food:20000,transport:15000,utilities:5000,entertainment:3000,health:4000,rent:25000};
 const CATICONS={food:'🍔',transport:'🚗',rent:'🏠',utilities:'💡',health:'🏥',education:'📚',entertainment:'🎬',salary:'💼',freelance:'💻',transfer:'📤',cash:'💵',other:'💸'};
 const SAMPLES={
@@ -524,8 +511,8 @@ const SAMPLES={
   airtime:"Confirmed. You bought Ksh100 airtime for 0712345678 on 9/4/25 at 11:45 AM. New M-PESA balance is Ksh750.",
 };
 const PTITLES={home:'Dashboard',txns:'Transactions',sms:'SMS Parser',manual:'Add Transaction',insights:'Insights'};
-let txs=[...DEMOS],activeFilter='all',activeType='expense',activeCat='food',parsedData=null,deferredInstall=null;
-window.txs=txs;window._DEMOS=[...DEMOS];window._CATICONS=CATICONS;
+let txs=[],activeFilter='all',activeType='expense',activeCat='food',parsedData=null,deferredInstall=null;
+window.txs=txs;window._DEMOS=[];window._CATICONS=CATICONS;
 // Keep window.txs in sync
 const _origPush=Array.prototype.unshift;
 const $=id=>document.getElementById(id);
@@ -569,7 +556,7 @@ function renderWeekChart(){
   html('week-chart',data.map(d=>`<div class="chart-col"><div class="bars"><div class="bar i" style="height:${Math.max(4,Math.round((d.income/max)*100))}px"></div><div class="bar e" style="height:${Math.max(4,Math.round((d.expense/max)*100))}px"></div></div><div class="chart-day">${d.label}</div></div>`).join(''));
 }
 function renderTxList(list){
-  if(!list.length)return`<div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">No transactions yet.<br>Tap + to add one.</div></div>`;
+  if(!list.length)return`<div class="empty"><div class="empty-ico">📭</div><div class="empty-txt">No transactions yet.<br>Paste an M-Pesa SMS or tap <strong>+</strong> to add a cash entry.</div></div>`;
   return list.map(t=>{
     const cr=t.amount>0;
     const sc=t.source==='mpesa'?'bm':t.source==='bank'?'bb':'bc';

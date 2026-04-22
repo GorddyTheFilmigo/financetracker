@@ -604,4 +604,8 @@ document.getElementById('install-dismiss-btn').addEventListener('click', () => {
 window.addEventListener('appinstalled', () => {
   document.getElementById('install-banner').style.display = 'none';
   deferredPrompt = null;
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> ba1d374c7f3a226aa38d6e305fc7563fc2328eb9
